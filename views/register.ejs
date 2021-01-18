@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html style="background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Chirp - Register</title>
+        <meta name="description" content="Simple Chat Application">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    </head>
+    <body>
+        <section class="hero is-fullheight">
+            <div class="hero-body">
+                <div class="container">
+                    <% if(typeof errors != "undefined" && errors.length > 0){ %>
+                        <% for (var i = 0; i < errors.length; i++) { %>
+                            <article class="message is-danger is-small">
+                                <div class="message-body">
+                                    <%= errors[i].message %>
+                                </div>
+                            </article>
+                        <% } %>
+                    <% } %>
+                    <figure class="image is-128x128" style="margin: 0 auto; padding-top: 20px;">
+                        <img class="is-rounded has-background-light" src="/chirp.png" style="padding: 15px;border: 1px solid #a3a3a3;">
+                    </figure>
+                    <div class="box has-background-white" style="max-width: 400px; margin: 0 auto; padding-top: 30px">
+                        <form action="/register" method="POST">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="text" placeholder="Name" name="name" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="email" placeholder="E-mail" name="email" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="text" placeholder="Handle" name="handle" pattern="[^\s]+" title="No spaces" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="password" placeholder="Password" name="password" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="password" placeholder="Confirm Password" name="password2" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button">Register</button>
+                                    <a style="display: inline; float: right; padding-top: 15px;" href="/login" >Login</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="" async defer></script>
+    </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html style="background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Chirp - Login</title>
+        <meta name="description" content="Simple Chat Application">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    </head>
+    <body>
+        <section class="hero is-fullheight">
+            <div class="hero-body">
+                <div class="container">
+                    <!-- Passport stores messages in a messages object -->
+                    <% if(messages.success_msg) { %>
+                        <article class="message is-success is-small">
+                            <div class="message-body">
+                                <%= messages.success_msg %>
+                            </div>
+                        </article>
+                    <% } %>
+                    <% if(messages.error) { %>
+                        <article class="message is-danger is-small">
+                            <div class="message-body">
+                                <%= messages.error %>
+                            </div>
+                        </article>
+                    <% } %>
+                    <figure class="image is-128x128" style="margin: 0 auto; padding-top: 20px;">
+                        <img class="is-rounded has-background-light" src="/chirp.png" style="padding: 15px;border: 1px solid #a3a3a3;">
+                    </figure>
+                    <div class="box has-background-white" style="max-width: 400px; margin: 0 auto; padding-top: 30px">
+                        <form action="/login" method="POST">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="email" placeholder="E-mail" name="email" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="password" placeholder="Password" name="password" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button">Login</button>
+                                    <a style="display: inline; float: right; padding-top: 15px;" href="/register" >Register</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="" async defer></script>
+    </body>
+</html>

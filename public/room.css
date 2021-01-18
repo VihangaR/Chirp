@@ -1,0 +1,41 @@
+#messages {
+    height: 60vh;
+    background: #f9f9f9;
+    padding: 5px 10px;
+}
+.msgLine{
+    margin: 5px 0;
+}
+.msgBox{
+    max-width: 95%;
+}
+.float-right{
+    float: right;
+}
+.user-list-item{
+    margin-bottom: 10px;
+}
+.onlineBox{
+    margin-top: 2%;
+}
+.fullh{
+    height: 100%;
+}
+.cBlack {
+    color: black;
+}
+.cBlack:hover {
+    color: rgb(28, 191, 255);
+}
+@media screen and (max-width: 768px) {
+    .onlineBox{
+        margin-top: 8%;
+    }
+    .column .msgBox{
+        width: 94%;
+        margin-left: 3%;
+    }
+}
+body {
+    background-color: #F7F7F7;
+}

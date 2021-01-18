@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Chirp</title>
+        <meta name="description" content="Simple Chat Application">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/index.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="/script.js"></script>
+        <script src="/index.js"></script>
+        <script>
+            var rooms = <%- JSON.stringify(servers) %>;
+        </script>
+    </head>
+    <body>
+        <nav class="navbar is-transparent transparent-col" role="navigation" aria-label="main navigation">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item is-size-4 has-text-weight-bold" href="/">
+                        Chirp
+                    </a>
+
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu is-size-5">
+                    <div class="navbar-end">
+                        <a class="navbar-item" id="nav-rooms" href="/#room">
+                            Rooms
+                        </a>
+                        <a class="navbar-item" id="nav-about" href="/#about">
+                            About
+                        </a>
+                        <% if(typeof name == 'undefined'){ %>
+                            <a class="navbar-item" href="/login">
+                                Login
+                            </a>
+                        <% } else { %>
+                            <div class="navbar-item has-dropdown is-hoverable">
+                                <a class="navbar-link is-arrowless">
+                                    Account
+                                </a>
+
+                                <div class="navbar-dropdown is-boxed is-size-6">
+                                    <a class="navbar-item" href="/logout">
+                                        Logout
+                                    </a>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <section class="hero is-medium">
+            <div class="hero-body">
+                <div class="container">
+                    <div class="columns">
+                        <div class="column is-size-3 is-size-1-tablet has-text-weight-bold has-text-centered-mobile">Create and join chat rooms and talk with anyone, anywhere</div>
+                        <div class="column has-text-centered">
+                            <img src="/index-pic.svg" alt="People chatting"  width="400">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="hero room-hero" id="room">
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <div class="field">
+                        <label class="label">Search for rooms</label>
+                        <div class="control">
+                            <input class="input is-rounded" name="servers" placeholder="Search rooms" id="searchInput" style="max-width: 400px;">
+                            <!-- <datalist id="servers">
+                                <% for(i = 0; i < servers.length; i++){ %>
+                                    <option value="<%= servers[i] %>"></option>
+                                <% } %>
+                            </datalist> -->
+                            <div class="box" id="roomListMaster">
+                                <div class="columns is-multiline" id="roomList">
+                                    <% for(i = 0; i < Math.min(servers.length, 25); i++){ %>
+                                        <div class="column is-3 room-links">
+                                            <a class="room-link" href="/room/<%= servers[i].roomname %>">
+                                                <%= servers[i].realroomname %>
+                                            </a>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Can't find a room? Create it!</label>
+                        <a class="button" id="create-room">Make new room</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="hero" id="about">
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <h1 class="title">
+                        About
+                    </h1>
+                    <div class="columns">
+                        <div class="column">This is a very barebones version of a chat application such as Discord. This application is room based where
+                            each room is geared towards one general topic. For example, any and all discussions about Movies would go in the respective Movie room.
+                            You can sign up and join any of the available public rooms. Within each room, you can see which user is currently active in the room,
+                            and also of course chat with anyone within the room. Users can also create rooms if one doesn't exist that pertains to their liking.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Create new room</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <form action="/createroom" method="POST">
+                    <section class="modal-card-body">
+                        <div>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="text" placeholder="Enter room name" name="roomName" pattern="^[a-zA-Z0-9_]+( [a-zA-Z0-9_]+)*$" title="Rooms can only have letters, numbers, spaces">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button class="button is-link">Create</button>
+                    </footer>
+                </form>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <p>
+                    Made as a pet project. See the source code <a href="#">here</a>.
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>
